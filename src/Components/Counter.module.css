@@ -1,0 +1,66 @@
+body {
+    background: #0b1f2d;
+}
+.counterBlock {
+    margin: 200px auto;
+    width: 500px;
+    height: 500px;
+    border: 5px solid #73deee;
+    background: #014d5b;
+    border-radius: 10px;
+}
+.counterDisplay{
+    margin: 30px auto;
+    border: 1px solid black;
+    width: 400px;
+    height: 250px;
+    background: #73deee;
+    border-radius: 10px;
+}
+.counterNumber{
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    color: white;
+    font-size: 100px;
+    font-weight: 500;
+
+}
+.counterRed {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    font-size: 100px;
+    color: red;
+    font-weight: 700;
+}
+
+
+.counterBottom{
+    margin: 30px auto;
+    width: 400px;
+    height: 150px;
+    background: #014d5b;
+    border: 3px solid #73deee;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+
+}
+.counterInc{
+    width: 110px;
+    height: 60px;
+    background: #73deee;
+    font-size: 45px;
+}
+.counterReset{
+    width: 140px;
+    height: 60px;
+    background: #73deee;
+    font-size: 45px;
+
+}
+

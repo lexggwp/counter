@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Counter from "./Components/Counter";
 
 function App() {
+
+  const [state, setState] = useState(0);
+  const incNumber = () => state < 5 ?setState(state + 1): true;
+
+  const reset = () => {
+    setState(0)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Counter reset={reset} inc={incNumber} state={state}/>
+
   );
 }
 
