@@ -1,29 +1,26 @@
 import React from 'react';
 import s from './Counter.module.css'
+import Button from "./Button";
+import {ValuesPropsType} from "../App";
 
 type CounterPropsType = {
     state: number;
-    inc: () => void;
+    addNumber: () => void;
     reset: () => void;
+    values: ValuesPropsType
 }
 
 const Counter = (props: CounterPropsType) => {
 
-    const onClickHandler = () => {
-        props.inc();
-    }
-    const onResetClickHandler = () => {
-        props.reset();
-    }
 
     return (
         <div className={s.counterBlock}>
             <div className={s.counterDisplay}>
-                <span className={props.state < 5 ? s.counterNumber: s.counterRed}>{props.state}</span>
+                <span className={`${s.counterNumber} ${props.state === 5 ? s.counterRed : ''}`}>{props.state}</span>
             </div>
             <div className={s.counterBottom}>
-                <button disabled={props.state > 4} onClick={onClickHandler} className={s.counterInc}>inc</button>
-                <button disabled={props.state < 1} onClick={onResetClickHandler} className={s.counterReset}>reset</button>
+                <Button disabled={props.state >= props.values.maxValue} style={s.counterInc} callback={props.addNumber} name={'inc'}/>
+                <Button disabled={props.state <= props.values.minValue} style={s.counterReset} callback={props.reset} name={'reset'}/>
             </div>
         </div>
     );
