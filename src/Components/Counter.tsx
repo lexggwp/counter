@@ -16,7 +16,7 @@ const Counter = (props: CounterPropsType) => {
     return (
         <div className={s.counterBlock}>
             <div className={s.counterDisplay}>
-                <span className={`${s.counterNumber} ${props.state === 5 ? s.counterRed : ''}`}>{props.state}</span>
+                <span className={`${s.counterNumber} ${props.state === props.values.maxValue ? s.counterRed : ''}`}>{props.state}</span>
             </div>
             <div className={s.counterBottom}>
                 <Button disabled={props.state >= props.values.maxValue} style={s.counterInc} callback={props.addNumber} name={'inc'}/>
