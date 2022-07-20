@@ -16,7 +16,7 @@ type CounterPropsType = {
 const Counter = (props: CounterPropsType) => {
 
 
-    const spanClassNameNoError = `${props.state === props.maxValue  ? s.counterError : s.counterNumber}`;
+    const spanClassNameNoError = `${!props.error && props.state === props.maxValue  ? s.counterError : s.counterNumber}`;
     const spanClassNameError = `${s.counterError}`
     return (
         <div className={s.counterBlock}>

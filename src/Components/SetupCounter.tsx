@@ -3,6 +3,7 @@ import s from "./SetupCounter.module.css";
 import Button from "./Button";
 
 
+
 type SetupCounterPropsType = {
     setMinValue: (minVal: number) => void;
     setMaxValue: (maxVal: number) => void;
