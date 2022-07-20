@@ -4,50 +4,54 @@ import Counter from "./Components/Counter";
 import SetupCounter from "./Components/SetupCounter";
 import s from './Components/Counter.module.css';
 
-// export type ValuesPropsType = {
-//     minValue: any,
-//     maxValue: any
-// }
-
 function App() {
 
 
-    const [minValue, setMinValue] = useState(0);
-    const [maxValue, setMaxValue] = useState(0);
-    const [state, setState] = useState(minValue);
-    const [error, setError] = useState('Set a Number');
+    const [minValue, setMinValue] = useState(1);
+    const [maxValue, setMaxValue] = useState(5);
+    const [state, setState] = useState<number | 'Set a number'>('Set a number');
+    const [error, setError] = useState('');
+    const [disableStatus, setDisableStatus] = useState(false);
 
 
     const setMin = (minVal: number) => {
-        setMinValue(minVal)
-        if (minVal === maxValue || minVal < 0 || minVal > maxValue) {
-            setError('Incorrect values!')
-        } else setError('')
+        setDisableStatus(true);
+        setMinValue(minVal);
+        setState('Set a number');
+        minVal === maxValue || minVal < 0 || minVal > maxValue ?
+            setError('Incorrect values!'):
+            setError('')
     }
     const setMax = (maxVal: number) => {
-        setMaxValue(maxVal)
-        if (maxVal === minValue || maxVal < 0 || maxVal < minValue) {
-            setError('Incorrect values')
-        } else setError('')
+        setDisableStatus(true);
+        setMaxValue(maxVal);
+        setState('Set a number');
+        maxVal === minValue || maxVal < 0 || maxVal < minValue ?
+            setError('Incorrect values'):
+            setError('')
     }
     const setButton = () => {
-        setState(minValue)
+        setState(minValue);
+        setDisableStatus(false);
     }
 
-    const addNumber = () => state < maxValue ? setState(state + 1) : true;
+    const addNumber = () => state < maxValue ? setState(+state + 1) : true;
 
     const reset = () => setState(0);
 
     return (
         <div className={s.counterMain}>
             <SetupCounter
+                     disableStatus={disableStatus}
                      error={error}
                      minNumber={minValue}
                      maxNumber={maxValue}
                      setButton={setButton}
                      setMaxValue={setMax}
                      setMinValue={setMin}/>
-            <Counter error={error}
+            <Counter
+                     disableStatus={disableStatus}
+                     error={error}
                      minValue={minValue}
                      maxValue={maxValue}
                      addNumber={addNumber}

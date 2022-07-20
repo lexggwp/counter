@@ -10,7 +10,7 @@ type SetupCounterPropsType = {
     minNumber: number,
     maxNumber: number,
     error: string;
-
+    disableStatus: boolean
 }
 
 const SetupCounter = (props: SetupCounterPropsType) => {
@@ -36,8 +36,8 @@ const SetupCounter = (props: SetupCounterPropsType) => {
                     <input className={inputClassName} value={props.maxNumber} onChange={onChangeMaxHandler} type={"number"}/>
                 </div>
             </div>
-            <div className={s.counterBottom}>
-                <Button disabled={false} style={s.counterInc} callback={props.setButton} name={'set'}/>
+            <div className={s.counterSetupBottom}>
+                <Button disabled={!props.disableStatus && !!props.error} style={s.counterInc} callback={props.setButton} name={'set'}/>
             </div>
         </div>
     );
