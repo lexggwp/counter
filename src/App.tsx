@@ -9,9 +9,8 @@ function App() {
 
     const [minValue, setMinValue] = useState(1);
     const [maxValue, setMaxValue] = useState(5);
-    const [state, setState] = useState<number>(1);
+    const [state, setState] = useState<number>(0);
     const [error, setError] = useState<string>('Set a number');
-
 
     const setMin = (minVal: number) => {
         setMinValue(minVal);
@@ -37,7 +36,7 @@ function App() {
 
     const addNumber = () => state < maxValue ? setState(state + 1) : true;
 
-    const reset = () => setState(0);
+    const reset = () => setState(minValue);
 
     return (
         <div className={s.counterMain}>
