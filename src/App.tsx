@@ -9,54 +9,54 @@ function App() {
 
     const [minValue, setMinValue] = useState(1);
     const [maxValue, setMaxValue] = useState(5);
-    const [state, setState] = useState<number | 'Set a number'>('Set a number');
-    const [error, setError] = useState('');
-    const [disableStatus, setDisableStatus] = useState(false);
+    const [state, setState] = useState<number>(1);
+    const [error, setError] = useState<string>('Set a number');
 
 
     const setMin = (minVal: number) => {
-        setDisableStatus(true);
         setMinValue(minVal);
-        setState('Set a number');
-        minVal === maxValue || minVal < 0 || minVal > maxValue ?
-            setError('Incorrect values!'):
-            setError('')
+        if (minVal >= maxValue || minVal < 0) {
+            setError('Incorrect values!')
+        } else {
+            setError('Set a number');
+        }
+
     }
     const setMax = (maxVal: number) => {
-        setDisableStatus(true);
         setMaxValue(maxVal);
-        setState('Set a number');
-        maxVal === minValue || maxVal < 0 || maxVal < minValue ?
-            setError('Incorrect values'):
-            setError('')
+        if (maxVal <= minValue || maxVal < 0) {
+            setError('Incorrect values!')
+        } else {
+            setError('Set a number');
+        }
     }
     const setButton = () => {
         setState(minValue);
-        setDisableStatus(false);
+        setError('');
     }
 
-    const addNumber = () => state < maxValue ? setState(+state + 1) : true;
+    const addNumber = () => state < maxValue ? setState(state + 1) : true;
 
     const reset = () => setState(0);
 
     return (
         <div className={s.counterMain}>
             <SetupCounter
-                     disableStatus={disableStatus}
                      error={error}
                      minNumber={minValue}
                      maxNumber={maxValue}
                      setButton={setButton}
                      setMaxValue={setMax}
-                     setMinValue={setMin}/>
+                     setMinValue={setMin}
+            />
             <Counter
-                     disableStatus={disableStatus}
                      error={error}
                      minValue={minValue}
                      maxValue={maxValue}
                      addNumber={addNumber}
                      reset={reset}
-                     state={state}/>
+                     state={state}
+            />
         </div>
 
     );

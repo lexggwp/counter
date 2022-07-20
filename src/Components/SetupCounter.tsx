@@ -10,7 +10,6 @@ type SetupCounterPropsType = {
     minNumber: number,
     maxNumber: number,
     error: string;
-    disableStatus: boolean
 }
 
 const SetupCounter = (props: SetupCounterPropsType) => {
@@ -22,7 +21,7 @@ const SetupCounter = (props: SetupCounterPropsType) => {
         props.setMaxValue(+event.currentTarget.value)
     }
 
-    const inputClassName = `${s.counterInput} ${props.error ? s.counterInputError: ''}`
+    const inputClassName = `${s.counterInput} ${props.error === 'Incorrect values!' ? s.counterInputError: ''}`
 
     return (
         <div className={s.counterBlock}>
@@ -32,12 +31,12 @@ const SetupCounter = (props: SetupCounterPropsType) => {
                     <input className={inputClassName} value={props.minNumber} onChange={onChangeMinHandler} type={"number"}/>
                 </div>
                 <div className={s.counterValue}>
-                    <p>start value</p>
+                    <p>max value</p>
                     <input className={inputClassName} value={props.maxNumber} onChange={onChangeMaxHandler} type={"number"}/>
                 </div>
             </div>
             <div className={s.counterSetupBottom}>
-                <Button disabled={!props.disableStatus && !!props.error} style={s.counterInc} callback={props.setButton} name={'set'}/>
+                <Button disabled={props.error !== 'Set a number'} style={s.counterInc} callback={props.setButton} name={'set'}/>
             </div>
         </div>
     );

@@ -28,23 +28,18 @@ body {
     display: flex;
     justify-content: center;
     margin: 70px auto;
-    color: white;
-    font-size: 60px;
+    color: #014d5b;
+    font-size: 50px;
     font-weight: 500;
 }
 .counterError{
     display: flex;
     justify-content: center;
-    margin: 90px auto;
-    color: #ff0101;
+    margin: 70px auto;
+    color: red;
     font-size: 50px;
     font-weight: 500;
 }
-.counterRed {
-    color: red;
-    font-weight: 700;
-}
-
 
 .counterBottom{
     margin: 30px auto;
