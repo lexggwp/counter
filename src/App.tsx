@@ -4,13 +4,17 @@ import Counter from "./Components/Counter";
 import SetupCounter from "./Components/SetupCounter";
 import s from './Components/Counter.module.css';
 
+type ErrorPropsType = 'Set a number' | 'Incorrect values!' | '';
+
+
+
 function App() {
 
 
     const [minValue, setMinValue] = useState(1);
     const [maxValue, setMaxValue] = useState(5);
     const [state, setState] = useState<number>(0);
-    const [error, setError] = useState<string>('Set a number');
+    const [error, setError] = useState<ErrorPropsType>('Set a number');
 
     const setMin = (minVal: number) => {
         setMinValue(minVal);
