@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./Components/Counter";
 import SetupCounter from "./Components/SetupCounter";
 import s from './Components/Counter.module.css';
 
-type ErrorPropsType = 'Set a number' | 'Incorrect values!' | '';
-
+// type ErrorPropsType = 'Set a number' | 'Incorrect values!' | '';
 
 
 function App() {
@@ -13,8 +12,38 @@ function App() {
 
     const [minValue, setMinValue] = useState(1);
     const [maxValue, setMaxValue] = useState(5);
-    const [state, setState] = useState<number>(0);
-    const [error, setError] = useState<ErrorPropsType>('Set a number');
+    const [state, setState] = useState(0);
+    const [error, setError] = useState<string>('Set a number');
+
+    // localState
+    useEffect(() => {
+        let localState = localStorage.getItem('localState');
+        if (localState) {
+            setState(JSON.parse(localState))
+        }
+        let localError = localStorage.getItem('localError');
+        if (localError !== null) {
+            setError(localError)
+        }
+        let localMin = localStorage.getItem('localMin');
+        if (localMin) {
+            setMinValue(JSON.parse(localMin))
+        }
+        let localMax = localStorage.getItem('localMax');
+        if (localMax) {
+            setMaxValue(JSON.parse(localMax))
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('localState', JSON.stringify(state));
+        localStorage.setItem('localError', error)
+        localStorage.setItem('localMin', JSON.stringify(minValue))
+        localStorage.setItem('localMax', JSON.stringify(maxValue))
+    }, [state, error, minValue, maxValue]);
+
+
+    // app functions
 
     const setMin = (minVal: number) => {
         setMinValue(minVal);
@@ -38,27 +67,32 @@ function App() {
         setError('');
     }
 
-    const addNumber = () => state < maxValue ? setState(state + 1) : true;
+    const addNumber = () => {
+        localStorage.setItem('localState', state.toString());
+        if (state < maxValue) {
+            setState(state + 1)
+        }
+    }
 
     const reset = () => setState(minValue);
 
     return (
         <div className={s.counterMain}>
             <SetupCounter
-                     error={error}
-                     minNumber={minValue}
-                     maxNumber={maxValue}
-                     setButton={setButton}
-                     setMaxValue={setMax}
-                     setMinValue={setMin}
+                error={error}
+                minNumber={minValue}
+                maxNumber={maxValue}
+                setButton={setButton}
+                setMaxValue={setMax}
+                setMinValue={setMin}
             />
             <Counter
-                     error={error}
-                     minValue={minValue}
-                     maxValue={maxValue}
-                     addNumber={addNumber}
-                     reset={reset}
-                     state={state}
+                error={error}
+                minValue={minValue}
+                maxValue={maxValue}
+                addNumber={addNumber}
+                reset={reset}
+                state={state}
             />
         </div>
 
