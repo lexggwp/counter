@@ -22,7 +22,7 @@ function App() {
             setState(JSON.parse(localState))
         }
         let localError = localStorage.getItem('localError');
-        if (localError !== null) {
+        if (localError) {
             setError(localError)
         }
         let localMin = localStorage.getItem('localMin');
@@ -33,14 +33,7 @@ function App() {
         if (localMax) {
             setMaxValue(JSON.parse(localMax))
         }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('localState', JSON.stringify(state));
-        localStorage.setItem('localError', error)
-        localStorage.setItem('localMin', JSON.stringify(minValue))
-        localStorage.setItem('localMax', JSON.stringify(maxValue))
-    }, [state, error, minValue, maxValue]);
+    }, [] );
 
 
     // app functions
@@ -64,11 +57,15 @@ function App() {
     }
     const setButton = () => {
         setState(minValue);
+        localStorage.setItem('localError', error)
+        localStorage.setItem('localMin', JSON.stringify(minValue))
+        localStorage.setItem('localMax', JSON.stringify(maxValue))
+        localStorage.setItem('localState', JSON.stringify(state))
         setError('');
     }
 
     const addNumber = () => {
-        localStorage.setItem('localState', state.toString());
+
         if (state < maxValue) {
             setState(state + 1)
         }
