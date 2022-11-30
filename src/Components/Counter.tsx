@@ -5,8 +5,8 @@ import Button from "./Button";
 
 type CounterPropsType = {
     state: number;
-    addNumber: () => void;
-    reset: () => void;
+    increaseButton: () => void;
+    resetButton: () => void;
     minValue: number,
     maxValue: number
     error: string
@@ -27,8 +27,8 @@ const Counter = (props: CounterPropsType) => {
                 </span>
             </div>
             <div className={s.counterBottom}>
-                <Button disabled={!!props.error || props.state === props.maxValue} style={s.counterInc} callback={props.addNumber} name={'inc'}/>
-                <Button disabled={!!props.error || props.state === props.minValue} style={s.counterReset} callback={props.reset} name={'reset'}/>
+                <Button disabled={!!props.error || props.state === props.maxValue} style={s.counterInc} callback={props.increaseButton} name={'inc'}/>
+                <Button disabled={!!props.error || props.state === props.minValue} style={s.counterReset} callback={props.resetButton} name={'reset'}/>
             </div>
         </div>
     );

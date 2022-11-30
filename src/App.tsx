@@ -10,86 +10,92 @@ import s from './Components/Counter.module.css';
 function App() {
 
 
-    const [minValue, setMinValue] = useState(1);
-    const [maxValue, setMaxValue] = useState(5);
-    const [state, setState] = useState(0);
+    const [inputMinValue, setInputMinValue] = useState(1);
+    const [inputMaxValue, setInputMaxValue] = useState(5);
+    const [displayState, setDisplayState] = useState(0);
     const [error, setError] = useState<string>('Set a number');
 
     // localState
     useEffect(() => {
-        let localState = localStorage.getItem('localState');
-        if (localState) {
-            setState(JSON.parse(localState))
+        let localDisplayState = localStorage.getItem('localDisplayState');
+        if (localDisplayState) {
+            setDisplayState(JSON.parse(localDisplayState))
         }
         let localError = localStorage.getItem('localError');
         if (localError) {
-            setError(localError)
+            setError(JSON.parse(localError))
         }
-        let localMin = localStorage.getItem('localMin');
-        if (localMin) {
-            setMinValue(JSON.parse(localMin))
+        let localMinValue = localStorage.getItem('localMinValue');
+        if (localMinValue) {
+            setInputMinValue(JSON.parse(localMinValue))
         }
-        let localMax = localStorage.getItem('localMax');
-        if (localMax) {
-            setMaxValue(JSON.parse(localMax))
+        let localMaxValue = localStorage.getItem('localMaxValue');
+        if (localMaxValue) {
+            setInputMaxValue(JSON.parse(localMaxValue))
         }
     }, [] );
 
 
     // app functions
 
-    const setMin = (minVal: number) => {
-        setMinValue(minVal);
-        if (minVal >= maxValue || minVal < 0) {
+    const setMinInput = (minVal: number) => {
+        setInputMinValue(minVal);
+        localStorage.setItem('localMinValue', JSON.stringify(minVal))
+        if (minVal >= inputMaxValue || minVal < 0) {
             setError('Incorrect values!')
+            localStorage.setItem('localError', JSON.stringify(error))
         } else {
             setError('Set a number');
         }
 
     }
-    const setMax = (maxVal: number) => {
-        setMaxValue(maxVal);
-        if (maxVal <= minValue || maxVal < 0) {
+    const setMaxInput = (maxVal: number) => {
+        setInputMaxValue(maxVal);
+        localStorage.setItem('localMaxValue', JSON.stringify(maxVal))
+        if (maxVal <= inputMinValue || maxVal < 0 || inputMinValue < 0) {
             setError('Incorrect values!')
+            localStorage.setItem('localError', JSON.stringify(error))
         } else {
             setError('Set a number');
         }
     }
     const setButton = () => {
-        setState(minValue);
-        localStorage.setItem('localError', error)
-        localStorage.setItem('localMin', JSON.stringify(minValue))
-        localStorage.setItem('localMax', JSON.stringify(maxValue))
-        localStorage.setItem('localState', JSON.stringify(state))
+        setDisplayState(inputMinValue);
         setError('');
+        localStorage.setItem('localError', JSON.stringify(''))
+        localStorage.setItem('localDisplayState', JSON.stringify(inputMinValue))
+
     }
 
-    const addNumber = () => {
 
-        if (state < maxValue) {
-            setState(state + 1)
-        }
+    const increaseNumberOnDisplay = () => {
+        setDisplayState(displayState => displayState + 1)
+        localStorage.setItem('localDisplayState', JSON.stringify(displayState + 1))
+
     }
 
-    const reset = () => setState(minValue);
+    const resetNumberOnDisplay = () => {
+        setDisplayState(inputMinValue);
+        localStorage.setItem('localDisplayState', JSON.stringify(inputMinValue))
+    }
 
     return (
         <div className={s.counterMain}>
             <SetupCounter
                 error={error}
-                minNumber={minValue}
-                maxNumber={maxValue}
+                minNumber={inputMinValue}
+                maxNumber={inputMaxValue}
                 setButton={setButton}
-                setMaxValue={setMax}
-                setMinValue={setMin}
+                setMaxValue={setMaxInput}
+                setMinValue={setMinInput}
             />
             <Counter
                 error={error}
-                minValue={minValue}
-                maxValue={maxValue}
-                addNumber={addNumber}
-                reset={reset}
-                state={state}
+                minValue={inputMinValue}
+                maxValue={inputMaxValue}
+                increaseButton={increaseNumberOnDisplay}
+                resetButton={resetNumberOnDisplay}
+                state={displayState}
             />
         </div>
 
